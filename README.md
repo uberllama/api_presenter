@@ -54,7 +54,7 @@ end
 
 When clients request posts (the primary collection), they may want any or all of the above data for those posts.
 
-### Create your Presenter
+### 1. Create your Presenter
 
 ```ruby
 class PostPresenter < ApiPresenter::Base
@@ -82,7 +82,7 @@ Presenters can define up to three methods:
 * `policy_methods` A list of Pundit policy methods to resolve for the primary collection.
 * `policy_associations` Additional records to preload in order to optimize policies that must traverse asscoiations.
 
-### Enable your controllers
+### 2. Enable your controllers
 
 ApiPresenter provides a controller concern that executes the Presenter. This process analyzes your params, preloads records as needed, and produces a `@presenter` object you can work with.
 
@@ -91,7 +91,7 @@ class ApplicationController
   include ApiPresenter::Concerns::Presentable
 end
 
-class PostsCOntroller < ApplicationController
+class PostsController < ApplicationController
   def index
     posts = PostQuery.records(current_user, params)
     present posts
@@ -104,7 +104,7 @@ class PostsCOntroller < ApplicationController
 end
 ```
 
-### Render the result
+### 3. Render the result
 
 How you ultimately render the primary collection and the data produced by ApiPresenter is up to you. `@presenter` has the following properties:
 
