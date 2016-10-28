@@ -78,13 +78,13 @@ end
 
 Presenters can define up to three methods:
 
-* `associations_map` The includable resources for the ActiveRecord model (Post, in this case). Consists of the model name as key and traversla required to preload/load them. In most cases, the value of `associations` will correspond directly to associations on the primary model.
+* `associations_map` The includable resources for the ActiveRecord model (`Post`, in this case). Consists of the model name as key and traversal required to preload/load them. In most cases, the value of `associations` will correspond directly to associations on the primary model.
 * `policy_methods` A list of Pundit policy methods to resolve for the primary collection.
 * `policy_associations` Additional records to preload in order to optimize policies that must traverse asscoiations.
 
 ### 2. Enable your controllers
 
-ApiPresenter provides a controller concern that executes the Presenter. This process analyzes your params, preloads records as needed, and produces a `@presenter` object you can work with.
+Your presentable collection can be an `ActiveRecord::Relation`, an array of records, or even a single record. Just call `present` on it. The preloads will be performed, and the included collections/policies will be available in the `@presenter` instance variable.
 
 ```ruby
 class ApplicationController
