@@ -1,10 +1,4 @@
 require 'pundit'
-require 'api_presenter/parse_include_params'
-require 'api_presenter/version'
-require 'api_presenter/concerns/presentable'
-require 'api_presenter/resolvers/base'
-require 'api_presenter/resolvers/policies_resolver'
-require 'api_presenter/resolvers/included_collections_resolver'
 
 module ApiPresenter
   class Base
@@ -202,3 +196,10 @@ module ApiPresenter
     end
   end
 end
+
+require 'api_presenter/parse_include_params'
+require 'api_presenter/version'
+require 'api_presenter/concerns/presentable'
+require 'api_presenter/resolvers/base'
+require 'api_presenter/resolvers/policies_resolver'
+require 'api_presenter/resolvers/included_collections_resolver'
