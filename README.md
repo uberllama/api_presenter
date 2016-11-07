@@ -134,13 +134,6 @@ end
 json.partial!("api/shared/included_collections_and_meta", presenter: @presenter)
 ```
 
-```ruby
-json.posts(@presenter.collection) do |post|
-  json.partial!(post)
-end
-json.partial!("api/shared/included_collections_and_meta", presenter: @presenter)
-```
-
 ### api/shared/included_collections_and_meta
 
 ```ruby
