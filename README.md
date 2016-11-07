@@ -235,6 +235,7 @@ end
 * Make index policy checking on includes optional
 * Allow custom collection names
 * Add test helper to assert presenter was called for a given controller action
+* Add presenter generator
 
 ## Development
 
