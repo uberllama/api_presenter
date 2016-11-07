@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ApiPresenter::ParseIncludeParams do
+RSpec.describe ApiPresenter::Parsers::ParseIncludeParams do
 
   describe '.call' do
     context 'when valid' do

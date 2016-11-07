@@ -115,7 +115,7 @@ RSpec.describe ApiPresenter::Base do
         let(:included_collection_names) { [:categories, :sub_categories, :users] }
 
         before(:each) do
-          expect(ApiPresenter::ParseIncludeParams).to receive(:call).with(include_param).
+          expect(ApiPresenter::Parsers::ParseIncludeParams).to receive(:call).with(include_param).
             and_return(included_collection_names)
         end
 
@@ -193,7 +193,7 @@ RSpec.describe ApiPresenter::Base do
     let(:included_collection_names) { [:categories,:sub_categories, :users] }
 
     before(:each) do
-      expect(ApiPresenter::ParseIncludeParams).to receive(:call).with(include_param).
+      expect(ApiPresenter::Parsers::ParseIncludeParams).to receive(:call).with(include_param).
         and_return(included_collection_names)
     end
 
