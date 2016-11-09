@@ -80,7 +80,7 @@ module ApiPresenter
     # @return [Array<Symbol>]
     #
     def included_collection_names
-      @included_collection_names ||= Parsers::ParseIncludeParams.call(params[:include])
+      @included_collection_names ||= Parsers::ParseIncludeParams.call(params[ApiPresenter.configuration.include_param])
     end
 
     # Map of included collection names and loaded record
@@ -172,11 +172,11 @@ module ApiPresenter
     private
 
     def count_only?
-      @count_only ||= !!params[:count]
+      @count_only ||= !!params[ApiPresenter.configuration.count_param]
     end
 
     def resolve_policies?
-      @resolve_policies ||= current_user && !!params[:policies]
+      @resolve_policies ||= current_user && !!params[ApiPresenter.configuration.policies_param]
     end
 
     def resolve_included_collctions?
