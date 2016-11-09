@@ -1,3 +1,7 @@
+## 0.3.0 (2016-11-09)
+
+Adds configuration options and generator.
+
 ## 0.2.4 (2016-11-07)
 
 Logical restructure. No API changes.
