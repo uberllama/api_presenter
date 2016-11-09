@@ -52,6 +52,12 @@ class User < ActiveRecord::Base
 end
 ```
 
+### 0. Generate config file
+
+`rails g api_presenter:config`
+
+Generates a configuration file that allows you to override the default querystring params used by the `presenter` concern. More to come.
+
 ### 1. Create your Presenter
 
 ```ruby
