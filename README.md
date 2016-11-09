@@ -52,8 +52,6 @@ class User < ActiveRecord::Base
 end
 ```
 
-When clients request posts (the primary collection), they may want any or all of the above data for those posts. 
-
 ### 1. Create your Presenter
 
 ```ruby
@@ -78,8 +76,8 @@ end
 
 Presenters can define up to three methods:
 
-* `associations_map` The includable resources for the ActiveRecord model (`Post`, in this case). Consists of the model name as key and traversal required to preload/load them. In most cases, the value of `associations` will correspond directly to associations on the primary model.
-* `policy_methods` A list of Pundit policy methods to resolve for the primary collection.
+* `associations_map` The business-dictated includable resources for the ActiveRecord model (`Post`, in this case). Consists of the model name as key and traversal required to preload/load them. In most cases, the value of `associations` will correspond directly to associations on the primary model.
+* `policy_methods` A list of Pundit policy methods to resolve for the primary collection if policies are requested.
 * `policy_associations` Additional records to preload in order to optimize policies that must traverse asscoiations.
 
 ### 2. Enable your controllers
