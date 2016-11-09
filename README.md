@@ -160,7 +160,7 @@ json.meta do
 end
 ```
 
-### 4. Examples
+### 4. Output
 
 Using the code above, our call to `GET /posts` would result in the following JSON:
 
@@ -196,8 +196,7 @@ And similarily, for `GET /posts/1`:
 
 ```json
 {
-  "post": { "id": 1, "sub_category": 1, "creator_id": 1, "publisher_id": 2, "body": "Lorem dim sum", "published": true }
-  ],
+  "post": { "id": 1, "sub_category": 1, "creator_id": 1, "publisher_id": 2, "body": "Lorem dim sum", "published": true },
   "categories": [
     { "id": 1, "name": "Animals" }
   ],
