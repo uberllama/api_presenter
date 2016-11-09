@@ -2,10 +2,10 @@
 
 A much longer readme is coming, including best practices and cautions, but in the meantime lets keep it simple...
 
-When creating RESTful APIs for web or mobile clients, there are a couple of common use cases that have emerged:
+When creating RESTful APIs for web or mobile clients, there are a couple of desirable endpoint behaviors:
 
-* Allow inclusion of associated data to mitigate number of requests
 * Include permissions so that the client can intelligently draw its UI (ex: edit/delete buttons), while maintaining a single source of truth
+* Allow inclusion of associated data to mitigate total number of requests
 
 ApiPresenter does both of these things, plus a bit more.
 
@@ -52,7 +52,11 @@ class User < ActiveRecord::Base
 end
 ```
 
-When clients request posts (the primary collection), they may want any or all of the above data for those posts.
+When clients request posts (the primary collection), they may want any or all of the above data for those posts. The following optional querystring params are used by the supplied controller concern's `present` method:
+
+* `count` [Boolean] Pass true if you just want a count of the primary collection
+* `policies` [Boolean] Pass true if you want to resolve policies for the primary collection records
+* `include` [String, Array] A comma-delimited list or array of collection names to include with the primary collection
 
 ### 1. Create your Presenter
 
@@ -92,11 +96,18 @@ class ApplicationController
 end
 
 class PostsController < ApplicationController
+
+  # @example
+  #   GET /posts?include=categories,subCategories,users&policies=true
+  #
   def index
     posts = PostQuery.records(current_user, params)
     present posts
   end
 
+  # @example
+  #   GET /posts/:id?include=categories,subCategories,users&policies=true
+  #
   def show
     post = Post.find(params[:id])
     present post
