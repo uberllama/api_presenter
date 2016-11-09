@@ -88,7 +88,7 @@ The following querystring params are used by the supplied controller concern's `
 
 * `count [Boolean]` Pass true if you just want a count of the primary collection
 * `policies [Boolean]` Pass true if you want to resolve policies for the primary collection records
-* `include [String, Array]` A comma-delimited list or array of collection names to include with the primary collection
+* `include [String, Array]` A comma-delimited list or array of collection names (camelCase or under_scored) to include with the primary collection
 
 ```ruby
 class ApplicationController
