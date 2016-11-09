@@ -162,6 +162,63 @@ json.meta do
 end
 ```
 
+### 4. Examples
+
+Using the code above, our call to `GET /posts` would result in the following JSON:
+
+```json
+{
+  "posts": [
+    { "id": 1, "sub_category": 1, "creator_id": 1, "publisher_id": 2, "body": "Lorem dim sum", "published": true },
+    { "id": 2, "sub_category": 2, "creator_id": 3, "publisher_id": null, "body": "Lorem dim sum", "published": false }
+  ],
+  "categories": [
+    { "id": 1, "name": "Animals" }
+  ],
+  "sub_categories": [
+    { "id": 1, "category_id": 1, "name": "Lemurs" },
+    { "id": 2, "category_id": 1, "name": "Anteaters" }
+  ],
+  "users": [
+    { "id": 1, "name": "Dora" },
+    { "id": 2, "name": "Boots" },
+    { "id": 3, "name": "Backpack" }
+  ],
+  "meta": {
+    "total_count": 2,
+    "policies": [
+      { "post_id": 1, "update": true, "destroy": false },
+      { "post_id": 2, "update": true, "destroy": true }
+    ]
+  }
+}
+```
+
+And similarily, for `GET /posts/1`:
+
+```json
+{
+  "post": { "id": 1, "sub_category": 1, "creator_id": 1, "publisher_id": 2, "body": "Lorem dim sum", "published": true }
+  ],
+  "categories": [
+    { "id": 1, "name": "Animals" }
+  ],
+  "sub_categories": [
+    { "id": 1, "category_id": 1, "name": "Lemurs" }
+  ],
+  "users": [
+    { "id": 1, "name": "Dora" },
+    { "id": 2, "name": "Boots" }
+  ],
+  "meta": {
+    "total_count": 1,
+    "policies": [
+      { "post_id": 1, "update": true, "destroy": false }
+    ]
+  }
+}
+```
+
 ## Advanced Usage
 
 ### Conditional includes
