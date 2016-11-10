@@ -1,1 +1,8 @@
-Creates configuration file
+Description:
+    Generates configuration filee.
+
+Example:
+    rails generate api_presenter:config
+
+    This will create:
+        app/config/api_presenter.rb
