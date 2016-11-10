@@ -109,6 +109,7 @@ class PostsController < ApplicationController
   #   GET /posts?include=categories,subCategories,users&policies=true
   #
   def index
+    authorize Post
     posts = PostQuery.records(current_user, params)
     present posts
   end
@@ -117,8 +118,9 @@ class PostsController < ApplicationController
   #   GET /posts/:id?include=categories,subCategories,users&policies=true
   #
   def show
-    post = Post.find(params[:id])
-    present post
+    @post = Post.find(params[:id])
+    authorize @post
+    present @post
   end
 end
 ```
