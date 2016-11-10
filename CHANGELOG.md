@@ -1,3 +1,11 @@
+## 0.4.1 (2016-11-10)
+
+Bug fix: include `ApplicationApiPresenter` in presenter lookup path.
+
+## 0.4.0 (2016-11-10)
+
+Adds presenter generator.
+
 ## 0.3.0 (2016-11-09)
 
 Adds configuration options and generator.
