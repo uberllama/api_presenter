@@ -5,4 +5,4 @@ Example:
     rails generate api_presenter:config
 
     This will create:
-        app/config/api_presenter.rb
+        config/initializers/api_presenter.rb
