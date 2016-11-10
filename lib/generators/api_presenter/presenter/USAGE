@@ -1,0 +1,8 @@
+Description:
+    Generates an API presenter for an ActiveRecord model with the given name.
+
+Example:
+    rails generate api_presenter:presenter post
+
+    This will create:
+        app/presenters/post_presenter.rb
