@@ -51,13 +51,11 @@ end
 
 class PostPresenter < ApiPresenter::Base; end
 
-class PostQuery
-  def self.records
-    Post.all
-  end
+class Query
+  def self.records; end
 end
 
-class PostsController
+class Controller
   include ApiPresenter::Concerns::Presentable
 
   attr_reader :current_user, :params
@@ -67,13 +65,7 @@ class PostsController
     @params       = params
   end
 
-  def index
-    records = PostQuery.records
-    present(records)
-  end
-
-  def show
-    record = Post.find(params[:id])
-    present(record)
+  def action
+    present(Query.records)
   end
 end

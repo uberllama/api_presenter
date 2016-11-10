@@ -55,6 +55,7 @@ module ApiPresenter
       def presenter_klass(klass)
         "#{klass.name}Presenter".safe_constantize ||
         "#{klass.base_class.name}Presenter".safe_constantize ||
+        "ApplicationApiPresenter".safe_constantize ||
         ApiPresenter::Base
       end
 
