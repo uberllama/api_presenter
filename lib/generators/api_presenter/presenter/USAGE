@@ -1,8 +1,9 @@
 Description:
-    Generates an API presenter for an ActiveRecord model with the given name.
+    Generates an API presenter for an ActiveRecord model with the given name, and a base class ApplicationApiPresenter unless already exists.
 
 Example:
     rails generate api_presenter:presenter post
 
     This will create:
-        app/presenters/post_presenter.rb
+      app/presenters/application_api_presenter.rb
+      app/presenters/post_presenter.rb

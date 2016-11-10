@@ -58,12 +58,16 @@ When requesting posts from the API, a client may also want any or all of the pos
 
 `rails g api_presenter:config`
 
-Generates a configuration file that allows you to override the default querystring params used by the `presenter` concern. More to come.
+Generates a configuration file that allows you to override the default querystring params used by the `presenter` concern. More configuration options coming soon.
 
 ### 1. Create your Presenter
 
+Using the supplied generator, generate a presenter class for your ActiveRecord model. The generator will also generate a convenient `ApplicationApiPresenter` class for centralized methods.
+
+`rails g api_presenter:presenter post`
+
 ```ruby
-class PostPresenter < ApiPresenter::Base
+class PostPresenter < ApiApplicationController
   def associations_map
     {
       categories:     { associations: { sub_category: :category } },
@@ -82,7 +86,7 @@ class PostPresenter < ApiPresenter::Base
 end
 ```
 
-Presenters can define up to three methods:
+Presenters have three opt-in methods:
 
 * `associations_map` The business-dictated includable resources for the ActiveRecord model (`Post`, in this case). Consists of the model name as key and traversal required to preload/load them. In most cases, the value of `associations` will correspond directly to associations on the primary model.
 * `policy_methods` A list of Pundit policy methods to resolve for the primary collection if policies are requested.

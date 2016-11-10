@@ -1,4 +1,4 @@
-class <%= class_name %>Presenter < ApiPresenter::Base
+class <%= class_name %>Presenter < ApplicationApiPresenter
   def associations_map
     {}
   end
