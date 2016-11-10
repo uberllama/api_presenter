@@ -1,6 +1,11 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 require 'active_record'
 require 'api_presenter'
+
+RSpec.configure do |config|
+  config.include PresentableHelper
+end
 
 ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 ActiveRecord::Base.logger = Logger.new(STDOUT)
