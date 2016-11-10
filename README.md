@@ -67,7 +67,7 @@ Using the supplied generator, generate a presenter class for your ActiveRecord m
 `rails g api_presenter:presenter post`
 
 ```ruby
-class PostPresenter < ApiApplicationController
+class PostPresenter < ApplicationApiPresenter
   def associations_map
     {
       categories:     { associations: { sub_category: :category } },
