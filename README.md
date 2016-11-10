@@ -92,7 +92,7 @@ Presenters can define up to three methods:
 
 Your presentable collection can be an `ActiveRecord::Relation`, an array of records, or even a single record. Just call `present` on it from your controller action. The preloads will be performed, and the included collections/policies will be available in the `@presenter` instance variable.
 
-The following querystring params are used by the supplied controller concern's `present` method:
+The following configurable querystring params are used by the supplied controller concern's `present` method:
 
 * `count [Boolean]` Pass true if you just want a count of the primary collection
 * `policies [Boolean]` Pass true if you want to resolve policies for the primary collection records
