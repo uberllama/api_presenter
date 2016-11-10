@@ -127,11 +127,11 @@ end
 
 How you ultimately render the primary collection and the data produced by ApiPresenter is up to you. `@presenter` has the following properties:
 
-* `collection` The primary collection that was passed into the presenter.
-* `total_count` When using Kaminari or another pagination method that defines a `total_count` property, returns unpaginated count. If the primary collection is not an `ActiveRecord::Relation`, simply returns the number of records.
-* `included_collection_names` Convenience method that returns an array of included collecton model names.
-* `included_collections` A hash of included collections, consisting of the model name and corresponding records.
-* `policies` An array of resolved policies for the primary collection.
+* `collection [Array<ActiveRecord::Base>]` The primary collection that was passed into the presenter. Empty if count requested.
+* `total_count [Integer]` When using Kaminari or another pagination method that defines a `total_count` property, returns unpaginated count. If the primary collection is not an `ActiveRecord::Relation`, simply returns the number of records.
+* `included_collection_names [Array<Symbol>]` Convenience method that returns an array of included collecton model names.
+* `included_collections [Hash]` A hash of included collections, consisting of the model name and corresponding records.
+* `policies [Array<Hash>]` An array of resolved policies for the primary collection.
 
 Here's an example of how you might render this using JBduiler:
 
