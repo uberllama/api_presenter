@@ -52,6 +52,8 @@ class User < ActiveRecord::Base
 end
 ```
 
+When requesting posts from the API, a client may also want any or all of the posts' categories, sub categories, and users. It may also want the current user's policies for the posts to generate correct UI.
+
 ### 0. Generate config file
 
 `rails g api_presenter:config`
