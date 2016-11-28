@@ -1,13 +1,11 @@
 # ApiPresenter
 
-A much longer readme is coming, including best practices and cautions, but in the meantime lets keep it simple...
+REST APIs provide a consice and conventional means of retreiving resources for a client. But in the real world, clients often have addiitonal data requirements beyond the specifically requested resource(s):
 
-When creating RESTful APIs for web or mobile clients, there are a couple of desirable endpoint behaviors:
+1. Current user permissions for the returned records, so that the client can intelligently draw its UI (ex: edit/delete buttons).
+2. Associated data, to mitigate total number of requests (ex: return authors with posts).
 
-* Include permissions so that the client can intelligently draw its UI (ex: edit/delete buttons), while maintaining a single source of truth
-* Allow inclusion of associated data to mitigate total number of requests
-
-ApiPresenter does both of these things, plus a bit more.
+ApiPresenter provides both of these things, plus a bit more.
 
 ## Installation
 
@@ -27,7 +25,7 @@ Or install it yourself as:
 
 ## Usage
 
-We'll use a simple blog as the usage example for this gem. The blog has the following model structure:
+ApiPresenter is well suited to large, relational systems. We'll use a blog as the usage example for this gem. The blog has the following model structure:
 
 ```ruby
 class Category < ActiveRecord::Base
@@ -52,17 +50,17 @@ class User < ActiveRecord::Base
 end
 ```
 
-When requesting posts from the API, a client may also want any or all of the posts' categories, sub categories, and users. It may also want the current user's policies for the posts to generate correct UI.
+Usage examples will be in the context of requesting posts as the primary collection.
 
 ### 0. Generate config file
 
 `rails g api_presenter:config`
 
-Generates a configuration file that allows you to override the default querystring params used by the `presenter` concern. More configuration options coming soon.
+Generate your configuration file. Currently, ApiPresent allows allows customization of querysting parameter names for including policies and associated resources(see below). More configuration options coming soon.
 
 ### 1. Create your Presenter
 
-Using the supplied generator, generate a presenter class for your ActiveRecord model. The generator will also generate a convenient `ApplicationApiPresenter` class for centralized methods.
+Generate a presenter class for your ActiveRecord model. The generator will also ensure the presence of an `ApplicationApiPresenter` base class for centralized methods.
 
 `rails g api_presenter:presenter post`
 
@@ -86,21 +84,15 @@ class PostPresenter < ApplicationApiPresenter
 end
 ```
 
-Presenters have three opt-in methods:
+Presenters can define three opt-in methods:
 
-* `associations_map` The business-dictated includable resources for the ActiveRecord model (`Post`, in this case). Consists of the model name as key and traversal required to preload/load them. In most cases, the value of `associations` will correspond directly to associations on the primary model.
+* `associations_map` Associated resources that you would like to be includable with the primary collection. Consists of the model name as key and the traversal required to preload/load them. In most cases, the value of `associations` will correspond directly to associations on the primary model.
 * `policy_methods` A list of Pundit policy methods to resolve for the primary collection if policies are requested.
-* `policy_associations` Additional records to preload in order to optimize policies that must traverse asscoiations.
+* `policy_associations` Additional associations to preload in order to optimize policies that must traverse asscoiations.
 
 ### 2. Enable your controllers
 
-Your presentable collection can be an `ActiveRecord::Relation`, an array of records, or even a single record. Just call `present` on it from your controller action. The preloads will be performed, and the included collections/policies will be available in the `@presenter` instance variable.
-
-The following configurable querystring params are used by the supplied controller concern's `present` method:
-
-* `count [Boolean]` Pass true if you just want a count of the primary collection
-* `policies [Boolean]` Pass true if you want to resolve policies for the primary collection records
-* `include [String, Array]` A comma-delimited list or array of collection names (camelCase or under_scored) to include with the primary collection
+Include the supplied controller concern at your `ApplicationController` level, or on a specific controller. This concern provides the `present` method, which can be called on an `ActiveRecord::Relation`, an array of records, or even a single record (preloading of associated collections is only performed for relations). 
 
 ```ruby
 class ApplicationController
@@ -129,9 +121,17 @@ class PostsController < ApplicationController
 end
 ```
 
+Controller params are used to tell the presenter what to load. The default param keys are `count`, `policies`, and `include`:
+
+* `count [Boolean]` Pass true if you just want a count of the primary collection.
+* `policies [Boolean]` Pass true if you want to resolve policies for the primary collection.
+* `include [String, Array]` A comma-delimited list or array of collection names (camelCase or under_scored) to include with the primary collection.
+
 ### 3. Render the result
 
-How you ultimately render the primary collection and the data produced by ApiPresenter is up to you. `@presenter` has the following properties:
+After calling the `present` method in a controller action, you access your processed collection through the `@presenter` instance variable. How you ultimately render the data produced by ApiPresenter is up to you. 
+
+`@presenter` has the following properties:
 
 * `collection [Array<ActiveRecord::Base>]` The primary collection that was passed into the presenter. Empty if count requested.
 * `total_count [Integer]` When using Kaminari or another pagination method that defines a `total_count` property, returns unpaginated count. If the primary collection is not an `ActiveRecord::Relation`, simply returns the number of records.
@@ -139,7 +139,7 @@ How you ultimately render the primary collection and the data produced by ApiPre
 * `included_collections [Hash]` A hash of included collections, consisting of the model name and corresponding records.
 * `policies [Array<Hash>]` An array of resolved policies for the primary collection.
 
-Here's an example of how you might render this using JBduiler:
+Here's an example of how you might render your data using JBduiler:
 
 ### api/posts/index.json.jbuilder
 
@@ -239,7 +239,7 @@ There are a number of ways you can conditionally include resources, depending, f
 #### Add conditions inside `associations_map` method
 
 ```ruby
-class PostPresenter < ApiPresenter::Base
+class PostPresenter < ApiApplicationPresenter
   def associations_map
     current_user.admin? ? admin_associations_map : user_associations_map
   end
@@ -265,7 +265,7 @@ end
 
 #### Use `condition` property within `association_map` definition
 
-Via inline string:
+##### Via inline string
 
 ```ruby
 class PostPresenter < ApiPresenter::Base
@@ -279,7 +279,7 @@ class PostPresenter < ApiPresenter::Base
 end
 ```
 
-Via method call:
+##### Via method call
 
 ```ruby
 class PostPresenter < ApiPresenter::Base
