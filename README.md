@@ -56,7 +56,7 @@ Usage examples will be in the context of requesting posts as the primary collect
 
 `rails g api_presenter:config`
 
-Generate your configuration file. Currently, ApiPresent allows allows customization of querysting parameter names for including policies and associated resources(see below). More configuration options coming soon.
+Generate your configuration file. Currently, ApiPresenter allows allows customization of querysting parameter names for including policies and associated resources (see below). More configuration options to come.
 
 ### 1. Create your Presenter
 
