@@ -176,7 +176,7 @@ end
 
 ### 4. Output
 
-Using the code above, our call to `GET /posts` would result in the following JSON:
+Using the code above, our call to `GET /posts?include=categories,subCategories,users&policies=true` would result in the following JSON:
 
 ```json
 {
@@ -206,7 +206,7 @@ Using the code above, our call to `GET /posts` would result in the following JSO
 }
 ```
 
-And similarily, for `GET /posts/1`:
+And similarily, for `GET /posts/1?include=categories,subCategories,users&policies=true`:
 
 ```json
 {
