@@ -1,6 +1,6 @@
 # ApiPresenter
 
-REST APIs provide a consice and conventional means of retreiving resources for a client. But in the real world, clients often have addiitonal data requirements beyond the specifically requested resource(s):
+REST APIs provide a concise and conventional means of retrieving resources for a client. But in the real world, clients often have additional data requirements beyond the specifically requested resource(s):
 
 1. Current user permissions for the returned records, so that the client can intelligently draw its UI (ex: edit/delete buttons).
 2. Associated data, to mitigate total number of requests (ex: return authors with posts).
@@ -56,7 +56,7 @@ Usage examples will be in the context of requesting posts as the primary collect
 
 `rails g api_presenter:config`
 
-Generate your configuration file. Currently, ApiPresenter allows allows customization of querysting parameter names for including policies and associated resources (see below). More configuration options to come.
+Generate your configuration file. Currently, ApiPresenter allows customization of querystring parameter names for including policies and associated resources (see below). More configuration options to come.
 
 ### 1. Create your Presenter
 
@@ -92,7 +92,7 @@ Presenters can define three opt-in methods:
 
 ### 2. Enable your controllers
 
-Include the supplied controller concern at your `ApplicationController` level, or on a specific controller. This concern provides the `present` method, which can be called on an `ActiveRecord::Relation`, an array of records, or even a single record (preloading of associated collections is only performed for relations). 
+Include the supplied controller concern at your `ApplicationController` level, or on a specific controller. This concern provides the `present` method, which can be called on an `ActiveRecord::Relation`, an array of records, or even a single record (preloading of associated collections is only performed for relations).
 
 ```ruby
 class ApplicationController
@@ -129,13 +129,13 @@ Controller params are used to tell the presenter what to load. The default param
 
 ### 3. Render the result
 
-After calling the `present` method in a controller action, you access your processed collection through the `@presenter` instance variable. How you ultimately render the data produced by ApiPresenter is up to you. 
+After calling the `present` method in a controller action, you access your processed collection through the `@presenter` instance variable. How you ultimately render the data produced by ApiPresenter is up to you.
 
 `@presenter` has the following properties:
 
 * `collection [Array<ActiveRecord::Base>]` The primary collection that was passed into the presenter. Empty if count requested.
 * `total_count [Integer]` When using Kaminari or another pagination method that defines a `total_count` property, returns unpaginated count. If the primary collection is not an `ActiveRecord::Relation`, simply returns the number of records.
-* `included_collection_names [Array<Symbol>]` Convenience method that returns an array of included collecton model names.
+* `included_collection_names [Array<Symbol>]` Convenience method that returns an array of included collection model names.
 * `included_collections [Hash]` A hash of included collections, consisting of the model name and corresponding records.
 * `policies [Array<Hash>]` An array of resolved policies for the primary collection.
 
@@ -234,7 +234,7 @@ And similarily, for `GET /posts/1?include=categories,subCategories,users&policie
 
 ### Conditional includes
 
-There are a number of ways you can conditionally include resources, depending, for insatnce, on user type.
+There are a number of ways you can conditionally include resources, depending, for instance, on user type.
 
 #### Add conditions inside `associations_map` method
 
