@@ -14,8 +14,8 @@ module ApiPresenter
     #
     # @return [ApiPresenter::Base]
     #
-    def self.call(**kwargs)
-      new(kwargs).call
+    def self.call(current_user: nil, relation:, params: {})
+      new(current_user: current_user, relation: relation, params: params).call
     end
 
     # @param current_user [User]                          Optional. current_user context.
